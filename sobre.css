@@ -1,0 +1,115 @@
+body{
+  width: 100%;
+}
+.hero{
+  max-width: 736px;
+  margin: auto;
+  text-align: center;
+  padding-top: 80px;
+}
+.formularios{
+  display: flex;
+  justify-content: center;
+}
+.form{
+  -webkit-writing-mode: horizontal-tb !important;
+  text-rendering: auto;
+  color: var(--preto-100);
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  appearance: textfield;
+  background-color: white;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  margin: 0em;
+  font: 16px Montserrat;
+  padding: 16px 20px;
+  border-width: 1px;
+  border-radius: 8px 0px 0px 8px;
+  width: 392px;
+}
+.botao-formulario{
+  height: 28px;
+  border-radius: 0 8px 8px 0;
+}
+.adicionarpicos{
+  margin: auto;
+  text-align: center;
+}
+.imagem-picos{
+  width: 1120px;
+  height: 459px;
+}
+.contato{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  max-width: 1120;
+  margin:auto;
+  margin-top: 148;
+  margin-bottom: 148;
+}
+.formulario-contato{
+    max-width: 544px;
+}
+.logo-footer{
+  width: 98px;
+}
+.redes-footer{
+   display: block;
+}
+.rede-footer{
+  width: 34px;
+  height: 30px;
+}
+footer{
+  background-color: #3F3F3F;
+  margin: auto;
+  text-align: center;
+  padding: 60;
+}
+.fab{
+  position: fixed;
+  bottom: 32;
+  right: 32;
+}
+.rede-footer{
+  margin-right: 24px;
+}
+@media (max-width: 1220px){
+  .imagem-picos{
+    width: 90%;
+    height: auto;
+  }
+  .contato{
+    flex-direction: column-reverse;
+    margin-top: 32;
+  }
+  .formulario-contato{
+    text-align: center;
+    margin-top: 32px;
+  }
+}
+@media (max-width: 780px){
+  .hero{
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  .form{
+    width: 100%;
+  }
+  .imagem-pico{
+    display: none;
+  }
+  .contato-img{
+    width: 90%;
+    height: auto;
+  }
+}

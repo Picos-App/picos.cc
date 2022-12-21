@@ -1,0 +1,155 @@
+<html lang="en">
+<link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+<head>
+  <title>Picos</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RKQN7TE5JC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RKQN7TE5JC');
+</script>
+  <!-- Global site tag (gtag.js) - Google Analytics End -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W8TDDTX');</script>
+<!-- End Google Tag Manager -->
+  <title>Picos App</title>
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+  <meta name="description" content="Picos App. Seu guia de picos digital!">
+  <meta property="og:title" content="Picos App" />
+  <meta property="og:url" content="https://picos.app/" />
+  <meta property="og:description" content="Picos App. Seu guia de picos digital!">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Picos-App/landing-page/main/img/metaimg.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <meta charset="utf-8">
+  <meta id="viewport" name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="geral.css">
+  <link rel="stylesheet" href="sobre.css">
+  <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Montserrat"> 
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <script>
+  function SubForm (){
+      $.ajax({
+          url:'https://api.apispreadsheets.com/data/8841/',
+          type:'post',
+          data:$("#myForm").serializeArray(),
+          success: function(){
+            alert("Obrigado por assinar nossa newsletter :)");
+            document.querySelector("#myForm").reset()
+          },
+          error: function(){
+            alert("Aconteceu um erro, tente novamente")
+          }
+      });
+  }
+  </script> 
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8TDDTX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <section class="menu">
+      <div class="container-menu">
+        <a href="index.html"><img src="img/home/logo.svg" class="logo"></a>
+        <div class="links">
+          <a href="index.html"><p class="link">Início</p></a>
+          <a href="#sobre"><p class="link">Sobre</p></a>
+          <a href="#enviar"><p class="link link-escondido">Enviar pico</p></a>
+          <a href="#contato"><p class="link link-escondido">Contato</p></a>
+        </div>
+        <div class="redes">
+          <a href="https://www.instagram.com/picos.app/" target="blank"><img src="img/home/instagram.svg" class="rede"></a>
+          <a href="https://www.youtube.com/channel/UC0cCQzVfqjqPJ7XsxANbs2Q" target="blank"><img src="img/home/youtube.svg" class="rede"></a>
+          <a href="https://discord.gg/ckTSHBSDTq" target="blank"><img src="img/home/discord.svg" class="rede"></a>
+        </div>
+      </div>
+      <div class="menu-mobile">
+        <a href="index.html"><img src="img/voltar.svg"></a>
+        <p class="subtitle1" style="color: var(--branco);">Sobre nós</p>
+        <img src="img/share.svg">
+      </div>
+    </section>
+  <section class="hero" id="sobre">
+    <img src="img/logosobre.svg" class="margem24">
+    <h3 class="titulo-sobre margem8">Seu guia digital de picos</h3>
+    <p class="body1 margem32 chamada-sobre"> Picos é o aplicativo que mapeia os picos de rua e pistas de skate das cidades. Veja no mapa os picos disponíveis com informações relevantes.</p>
+    <p class="body2 margem32">Insira seu e-mail para receber novidades sobre a plataforma.</p>
+    <section class="formularios margem56">
+        <form id="myForm">
+          <input name="email" placeholder="Seu e-mail" class="form">
+        </form>
+        <div onclick="SubForm()" class="botao botao-principal botao-formulario">Enviar</div>
+      </section>
+  </section>
+  <section class="adicionarpicos" id="enviar">
+    <img src="img/imagempicos.png" class="imagem-picos margem32">
+    <h4 class="margem8"> Quer enviar um pico para gente?</h4>
+    <p class="body1 margem16">Sentiu que o pico que você gosta não está aqui? Faça o cadastro dele agora mesmo!</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeTs6VZAFTfm51lE-lex6VVGHiIvb-R4IPqAzoNy5d13_xNTA/viewform?usp=sf_link" class="botao botao-principal" target="blank">
+      <img src="img/add.svg">
+      <p class="button"> Adicionar pico</p>
+    </a>
+  </section>
+  <section class="contato" id="contato">
+    <div class="formulario-contato">
+      <h4 class="margem16">Fale conosco</h4>
+      <p class="body1 margem24">Gostou da plataforma? Tem críticas? Quer ficar por dentro de tudo da plataforma? Entre no nosso servidor do Discord</p>
+      <a href="https://discord.gg/ckTSHBSDTq" class="botao botao-principal" target="blank">
+        <img src="img/discord.svg" class="material-icon">
+        <p class="button"> Entrar no servidor</p>
+      </a>
+    </div>
+    <img src="img/contato-img.png" class="contato-img">
+  </section>
+  <footer>
+    <img src="img/logo.png" class="logo-footer margem32">
+    <div class="redes redes-footer">
+    <a href="https://www.instagram.com/picos.app/" target="blank"><img src="img/home/instagram.svg" class="rede-menu rede-footer"></a>
+    <a href="https://www.youtube.com/channel/UC0cCQzVfqjqPJ7XsxANbs2Q" target="blank"><img src="img/home/youtube.svg" class="rede-menu rede-footer"></a>
+    <a href="https://discord.gg/ckTSHBSDTq" target="blank"><img src="img/home/discord.svg" class="rede-menu rede-footer" style="margin-right: 0px;"></a>
+  </div>
+  </footer>
+  <a href="https://forms.gle/piDgDi3xyj5XaY2E8" class="botao botao-principal fab" target="blank">
+    <p class="button"> O que achou da plataforma?</p>
+  </a>
+</body>
+</html>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
+
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+</script>

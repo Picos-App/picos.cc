@@ -1,0 +1,52 @@
+.flex-pico{
+	padding-top: 80px;
+	margin: auto;
+	max-width: 736px;
+}
+.imagem-pico{
+	width: 736px; height: 414px;
+	background-position: center;
+    background-size: cover;
+}
+.div-pico{
+	position: relative;
+}
+.chip-flutuante{
+	bottom: 0;
+	position: absolute;
+	margin-left: 16px;
+	margin-bottom: 16px;
+}
+body{
+	width: 100%;
+}
+.botao-slider-esquerda{
+	position: absolute;
+	top: 3;
+	right: 3;
+}
+.botao-slider-direita{
+	position: absolute;
+	top:6;
+	left: 3;
+}
+.passadores{
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+@media (max-width: 780px){
+	.flex-pico{
+		width: 100%;
+		padding-top: 56px;
+	}
+	.imagem-pico{
+	width: 100%; height: 240px;
+	}
+	.textos-pico{
+		margin-right: 16px;
+		margin-left: 16px;
+	}
+}

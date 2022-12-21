@@ -1,0 +1,1008 @@
+<script>
+// Initialize and add the map
+function initMap() {
+
+  // The location of center
+  const center = { lat: -22.8386264058579, lng:  -43.19962769791486 }; 
+
+  // The map
+  var map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 11,
+    center: center,
+    styles:
+    [
+      {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#f7f7f7"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.business",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#ffd650"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "stylers": [
+          {
+            "color": "#b8dfff"
+          }
+        ]
+      }
+    ]
+  });
+
+
+
+
+  // Array of icons
+  var icons = {
+    "outros": {
+      url: "img/icones/outros.svg"
+    },
+    "gap": {
+      url: "img/icones/gap.svg"
+    },
+    "borda":{
+      url: "img/icones/borda.svg"
+    },
+    "praca":{
+      url: "img/icones/praca.svg"
+    },
+    "pista":{
+      url: "img/icones/pista.svg"
+    },
+    "corrimao":{
+      url:"img/icones/corrimao.svg"
+    },
+    "rampa":{
+      url:"img/icones/rampa.svg"
+    },
+  }
+
+  // Array of iconsinfo
+  var iconsinfo = {
+    "outros": {
+      url: "img/icones/outros-outros.svg"
+    },
+    "gap": {
+      url: "img/icones/outros-gap.svg"
+    },
+    "borda":{
+      url: "img/icones/outros-borda.svg"
+    },
+    "praca":{
+      url: "img/icones/outros-praca.svg"
+    },
+    "pista":{
+      url: "img/icones/outros-pista.svg"
+    },
+    "corrimao":{
+      url:"img/icones/outros-corrimao.svg"
+    },
+    "rampa":{
+      url:"img/icones/outros-rampa.svg"
+    },
+  }
+
+
+  //Array of dificulties
+  var dificuldades = {
+    "facil":{
+      text: "Fácil"
+    },
+    "intermediario":{
+      text:"Intermediário"
+    },
+    "dificil": {
+      text: "Difícil"
+    },
+  }
+
+  //Array of icons dificulties
+  var iconsdificulties = {
+    "facil": {
+      url: "img/icones/facil.svg"
+    },
+    "intermediario": {
+      url: "img/icones/intermediario.svg"
+    },
+    "dificil": {
+      url: "img/icones/dificil.svg"
+    },
+  }
+
+
+  //Function retornar template
+  function retornarTemplate(link, imagem, nome, categoriainfowindow, categoria, dificuldade, dificuldadeinfowindow) {
+    return `
+    <a href="${link}">
+    <section class="infowindow">
+      <img src="${imagem}" class="infowindow-img margem16">
+      <h5>${nome}</h5>
+      <div class="chip">
+        <img src="${categoriainfowindow}" style="margin-right:4px;">
+        <p class="body1">${categoria}</p>
+      </div>
+      <div class="chip">
+        <p class="body1" style="margin-right:4px;">${dificuldade}</p>
+        <img src="${dificuldadeinfowindow}">
+      </div>
+        <div class="chip">
+          <p class="button botao-simples" style="margin-right:4px;">Ver pico</p>
+          <img src="img/icones/arrow-forward.svg">
+        </div>
+    </section>
+    </a>
+    `
+  };
+
+
+  // Array of markers
+  var markers = [
+    {
+      coords:{lat: -22.95314,
+        lng: -43.18874},
+      iconImage: icons.gap,
+      content: retornarTemplate(  
+        "picos/0001.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F01.jpg?alt=media&token=ad81a854-8694-49b5-9e97-5c738a0177b5",
+        'Gap do Itaú',
+        iconsinfo.gap.url,
+        'Escada ou gap',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.96188,
+        lng: -43.20393},
+      iconImage: icons.rampa,
+      content: retornarTemplate(  
+        "picos/0002.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F03.jpg?alt=media&token=ef41d753-0aa5-4b10-bef0-175848c488b1",
+        'Rebouças',
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.95482,
+        lng: -43.19404},
+      iconImage: icons.gap,
+      content: retornarTemplate(  
+        "picos/0003.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F05.jpg?alt=media&token=ecdcd1fb-ec88-4198-9162-24c00d71e076",
+        'Gap com Mureta',
+        iconsinfo.gap.url,
+        'Escada ou gap',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+     {
+      coords:{lat: -22.95442,
+        lng: -43.19287},
+      iconImage: icons.borda,
+      content: retornarTemplate(  
+        "picos/0004.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F07.jpg?alt=media&token=da167252-3c67-48ef-bb32-ffa6ec505f2a",
+        'Borda em curva da Real Grandeza',
+        iconsinfo.borda.url,
+        'Borda ou manual pad',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.95482,
+        lng: -43.18243},
+      iconImage: icons.borda,
+      content: retornarTemplate(  
+        "picos/0005.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F08.jpg?alt=media&token=4a709cad-fc56-40d8-adc6-c45ef51bded0",
+        'Bordinha da Arnaldo Quintela',
+        iconsinfo.borda.url,
+        'Borda ou manual pad',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.9543,
+        lng: -43.18416},
+      iconImage: icons.rampa,
+      content: retornarTemplate(  
+        "picos/0006.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F18.jpg?alt=media&token=c99d64e6-7dfe-4ac6-a4eb-5ff65fdd3dcd",
+        'Wallride da Oi',
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.94866,
+        lng: -43.18105},
+      iconImage: icons.rampa,
+      content: retornarTemplate(  
+        "picos/0007.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F10.jpg?alt=media&token=68c58410-970f-48e2-8695-548a69901f56",
+        'Passagem subterrânea de Botafogo',
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.94155,
+        lng: -43.1797},
+      iconImage: icons.rampa,
+      content: retornarTemplate(  
+        "picos/0008.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F11.jpg?alt=media&token=208f5b12-9a83-436e-8c80-70e063f8360f",
+        'Quarter da FGV',
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.94506,
+        lng: -43.18372},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0009.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F12.jpg?alt=media&token=c3008fa4-e232-44fe-993c-24e8ebbb4ed1",
+        'Praça Joia Valansi',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.9829,
+        lng: -43.41173},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0010.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F15.jpg?alt=media&token=9e169201-150e-488c-b22f-1b88b1ba42da",
+        'Ilha Pura',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.93055,
+        lng: -43.23317},
+      iconImage: icons.rampa,
+      content: retornarTemplate(  
+        "picos/0011.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F16.jpg?alt=media&token=17bf042e-c8d7-425d-afc4-4d691416fa96",
+        'Rampinha da igreja',
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.92991,
+        lng: -43.23414},
+      iconImage: icons.rampa,
+      content: retornarTemplate(  
+        "picos/0012.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F19.jpg?alt=media&token=1349679b-eda1-4bac-a79b-2d9030075201",
+        'Wallride Desembargador Izidro',
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.93108,
+        lng: -43.23796},
+      iconImage: icons.borda,
+      content: retornarTemplate(  
+        "picos/0013.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F20.jpg?alt=media&token=ce957ec2-eea5-4222-be5c-eb33b46821c5",
+        'Borda em curva',
+        iconsinfo.borda.url,
+        'Borda ou manual pad',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.92641,
+        lng: -43.26503},
+      iconImage: icons.outros,
+      content: retornarTemplate(  
+        "picos/0014.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F21.jpg?alt=media&token=28de19d1-a9c7-4353-9de3-b81bf7fe5534",
+        'Fradinho Grajamaica',
+        iconsinfo.outros.url,
+        'Outros',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.93729,
+        lng: -43.17508},
+      iconImage: icons.gap,
+      content: retornarTemplate(  
+        "picos/0015.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F22.jpg?alt=media&token=8d921dbb-485f-4261-8db6-29951de97352",
+        'Gap do mercado',
+        iconsinfo.gap.url,
+        'Escada ou gap',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.98551,
+        lng: -43.22354},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0016.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F23.jpg?alt=media&token=c1a1af30-7489-4e74-916c-8b71294782a4",
+        'Praça Antero de Quental',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.98641,
+        lng: -43.22901},
+      iconImage: icons.rampa,
+      content: retornarTemplate(  
+        "picos/0017.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F27.jpg?alt=media&token=6f81da6a-4552-44cc-8c38-e5ce31666b0d",
+        'Wallride do Leblon',
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.98813,
+        lng: -43.2281},
+      iconImage: icons.borda,
+      content: retornarTemplate(  
+        "picos/0018.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F28.jpg?alt=media&token=4c7b4a15-9067-4f93-91bc-2980ab7a557e",
+        'Borda do final do Leblon',
+        iconsinfo.borda.url,
+        'Borda ou manual pad',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.98387,
+        lng: -43.21365},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0019.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F29.jpg?alt=media&token=b9262f8b-c01f-4567-8759-2721d569ec33",
+        'Obelisco de Ipanema',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.9817,
+        lng: -43.21388},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0020.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F33.jpg?alt=media&token=b5402bbd-7f7a-4e04-a70f-2774c2136762",
+        'DIY do Jardim de Alah',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.97953,
+        lng: -43.21523},
+      iconImage: icons.gap,
+      content: retornarTemplate(  
+        "picos/0021.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F36.jpg?alt=media&token=59cb1375-a27e-4b84-a557-d68bc5296eee",
+        'Pier da Lagoa',
+        iconsinfo.gap.url,
+        'Escada ou gap',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.97999,
+        lng: -43.21698},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0022.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F37.jpg?alt=media&token=2b31589c-5781-4e7e-9821-7a0845895595",
+        'Quadra da Lagoa',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.9803,
+        lng: -43.21938},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0023.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F39.jpg?alt=media&token=54529b40-ce60-458d-89f7-747cf3f0400b",
+        'Selva de Pedra',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.91939,
+        lng: -43.24373},
+      iconImage: icons.corrimao,
+      content: retornarTemplate(  
+        "picos/0024.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F40.jpg?alt=media&token=036aa1fe-3de4-470f-9021-20bfec0e97fa",
+        'Extra da Rua Maxwell',
+        iconsinfo.corrimao.url,
+        'Corrimão',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.92166,
+        lng: -43.2505},
+      iconImage: icons.gap,
+      content: retornarTemplate(  
+        "picos/0025.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F41.jpg?alt=media&token=3a998804-c792-4ad4-bb26-20525e828535",
+        'Escada da Barão de São Francisco',
+        iconsinfo.gap.url,
+        'Escada ou gap',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.9344,
+        lng: -43.24414},
+      iconImage: icons.rampa,
+      content: retornarTemplate(  
+        "picos/0026.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F42.jpg?alt=media&token=67ef5290-4840-47b2-914b-5b80bd543c98",
+        'Jumpzinha da Maracanã',
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.93002,
+        lng: -43.23749},
+      iconImage: icons.borda,
+      content: retornarTemplate(  
+        "picos/0027.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F43.jpg?alt=media&token=e2a16f90-bbb9-47e6-a124-ea76096f62a6",
+        'Manual pad da Conde de Bonfim',
+        iconsinfo.borda.url,
+        'Rampa ou wallride',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.9249,
+        lng: -43.23485},
+      iconImage: icons.corrimao,
+      content: retornarTemplate(  
+        "picos/0028.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F44.jpg?alt=media&token=76430e73-bb58-4d27-ab19-77618f5b27c4",
+        'Gap com corrimão da Casa e Vídeo',
+        iconsinfo.corrimao.url,
+        'Corrimão',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.98396,
+        lng: -43.19681},
+      iconImage: icons.borda,
+      content: retornarTemplate(  
+        "picos/0029.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F45.jpg?alt=media&token=5d96f4d5-9f8d-42e1-bc4a-36063c7c82a7",
+        'Borda da General Osório',
+        iconsinfo.borda.url,
+        'Borda ou manual pad',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.95866,
+        lng: -43.20023},
+      iconImage: icons.borda,
+      content: retornarTemplate(  
+        "picos/0030.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F46.jpg?alt=media&token=916e5b66-8cc1-4e0e-8fad-046837149e7a",
+        'Manual pad da Humaitá',
+        iconsinfo.borda.url,
+        'Borda ou manual pad',
+        dificuldades.dificil.text,
+        iconsdificulties.dificil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.90326,
+        lng: -43.17416},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0031.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F47.jpg?alt=media&token=2ee915f8-8713-44e8-8fae-863dcfb24a22",
+        'Praça XV',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.89438, 
+        lng: -43.18546},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0032.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F48.jpg?alt=media&token=e049e1ec-bf9c-44e4-82fc-59a8ca5a228e",
+        'Segundo setor',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+     {
+      coords:{lat: -22.89392,
+        lng: -43.18677},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0033.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F50.jpg?alt=media&token=a5e906f9-775b-495e-b6fe-bc2a386d936d",
+        'Terceiro setor',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.89243, 
+        lng: -43.19232},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0034.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F51.jpg?alt=media&token=4654edbf-836c-4bc5-97d0-dc3f25e12bab",
+        'AquaRio',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.89622, 
+        lng: -43.18094},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0035.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F52.jpg?alt=media&token=6edb41ba-6f12-4da2-b678-aed457ee7617",
+        'Praça Mauá',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.90415,
+        lng: -43.17083},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0036.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F53.jpg?alt=media&token=a587cffd-acb6-4253-a45c-acc415e8151f",
+        'Praça Marechal Âncora',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.89415,
+        lng: -43.18998},
+      iconImage: icons.borda,
+      content: retornarTemplate(  
+        "picos/0037.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F54.jpg?alt=media&token=b534af0c-9ac4-4193-9254-299ff1d01ff3",
+        'Manual Ret',
+        iconsinfo.borda.url,
+        'Praça',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.89537,
+        lng: -43.19896},
+      iconImage: icons.rampa,
+      content: retornarTemplate(  
+        "picos/0038.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F55.jpg?alt=media&token=af56283f-53a0-4806-bc46-8e92b10b016e",
+        'Jump da Rua da Gamboa',
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -23.01206,
+        lng: -43.31766},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0039.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F56.jpg?alt=media&token=aca1fd05-584a-4c43-b2f7-76a69576fcce",
+        'Praça Duó',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.91451,
+        lng: -43.09659},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0040.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F57.jpg?alt=media&token=9d4111e4-63f0-423b-8f9a-60f992bff610",
+        'Marina Skatepark',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.88167, 
+        lng: -43.09159},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0041.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F58.jpg?alt=media&token=672a75b1-122f-4f5e-a0b4-7e1f14d2d736",
+        'Skatepark Horto do Fonseca',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.90676, 
+        lng: -43.0657},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0042.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F59.jpg?alt=media&token=c675264a-f5e1-4fc9-8f42-10ddd78994d9",
+        'Pista de Skate Flavio “Charlie”',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.86268,
+        lng:  -43.2388},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0043.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F60.jpg?alt=media&token=77e3095c-2196-4e55-87a7-a4fc5475b986",
+        'Maré Favela Skatepark',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.89357, 
+        lng: -43.29407},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0044.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F61.jpg?alt=media&token=3eaf52c0-5b55-4855-946f-7249f27c12a9",
+        'Galpão do Engenhão',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.89443,
+        lng: -43.30043},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0045.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F63.jpg?alt=media&token=c051de75-dc9c-4fca-84f8-dd897c869866",
+        'Skatepark do Engenhão',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.86402,
+        lng: -43.34521},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0046.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F64.jpg?alt=media&token=31893ac6-8f2d-4aca-8b35-b23074aa9485",
+        'Tatu Skatepark',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -22.85452,
+        lng: -43.35368},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0047.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2F66.jpg?alt=media&token=e59dc23c-11fe-43e5-9196-a8ffc017c0b6",
+        'Half Pipe Parque Madureira',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -23.54592,
+        lng: -46.63613},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0048.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2Fsp%2F01.jpg?alt=media&token=866dcbdb-6733-402d-9e10-1f39bab564d7",
+        'Vale do Anhangabaú',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -23.5503,
+        lng: -46.6342},
+      iconImage: icons.praca,
+      content: retornarTemplate(  
+        "picos/0049.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2Fsp%2F04.jpg?alt=media&token=5f7efce6-4754-452f-b3e7-d3ef0e2e249c",
+        'Praça da Sé',
+        iconsinfo.praca.url,
+        'Praça',
+        dificuldades.intermediario.text,
+        iconsdificulties.intermediario.url,                
+      ),
+    },
+    {
+      coords:{lat: -23.55212,
+        lng: -46.63272},
+      iconImage: icons.borda,
+      content: retornarTemplate(  
+        "picos/0050.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2Fsp%2F06.jpg?alt=media&token=7e4afcb2-dcfc-4ed8-b1b8-918e15a70aec",
+        'Bordinha da Sé',
+        iconsinfo.borda.url,
+        'Borda ou manualpad',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -23.54798,
+        lng: -46.63261},
+      iconImage: icons.outros,
+      content: retornarTemplate(  
+        "picos/0051.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2Fsp%2F08.jpg?alt=media&token=ff0ee31d-eb85-4169-8afe-d77f55aea3cf",
+        'Pateo do Collegio',
+        iconsinfo.outros.url,
+        'Outros',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -23.545204643286485,
+        lng:-46.62864322819404},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0052.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2Fsp%2F09.jpg?alt=media&token=575c5626-5ee7-478a-a4ec-05298fd67bb8",
+        'Parque Dom Pedro',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+    {
+      coords:{lat: -23.550178222342403,
+        lng:-46.596784130254996},
+      iconImage: icons.pista,
+      content: retornarTemplate(  
+        "picos/0053.html",      
+        "https://firebasestorage.googleapis.com/v0/b/picos-306018.appspot.com/o/imagens%2Fsp%2F11.jpg?alt=media&token=4a8fba1b-b682-4d5d-9f5b-0d40bdbfdbcb",
+        'Mooca Skatepark',
+        iconsinfo.pista.url,
+        'Pista',
+        dificuldades.facil.text,
+        iconsdificulties.facil.url,                
+      ),
+    },
+  ];
+
+  //Loop for markers
+  markers.forEach(marker => addMarker(marker))
+
+
+  // Add marker funcion
+  function addMarker (props){
+    var marker = new google.maps.Marker({
+      position: props.coords,
+      map: map,
+    });
+
+    // Check for customization
+    if(props.iconImage){
+
+      //Set icon image
+      marker.setIcon(props.iconImage);
+    }
+
+    //Check content
+    if(props.content){
+      var InfoWindow = new google.maps.InfoWindow({
+        content: props.content
+      });
+
+
+      marker.addListener('click', function(){
+        InfoWindow.open(map, marker);
+      });
+    }
+  }
+}
+</script>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Picos</title>
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RKQN7TE5JC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-RKQN7TE5JC');
+</script>
+  <!-- Global site tag (gtag.js) - Google Analytics End -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W8TDDTX');</script>
+<!-- End Google Tag Manager -->
+  <title>Picos App</title>
+  <meta name="description" content="Picos App. Seu guia de picos digital!">
+  <meta property="og:title" content="Picos App" />
+  <meta property="og:url" content="https://picos.app/" />
+  <meta property="og:description" content="Picos App. Seu guia de picos digital!">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Picos-App/landing-page/main/img/metaimg.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <meta charset="utf-8">
+  <meta id="viewport" name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="geral.css">
+  <link rel="stylesheet" href="index.css">
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet"href="https://fonts.googleapis.com/css?family=Montserrat">	
+</head>
+<body>
+	<section class="menu">
+		<div class="container-menu" style="display: flex;">
+			<a href="index.html"><img src="img/home/logo.svg" class="logo"></a>
+			<div class="links">
+				<a href="index.html"><p class="link link-escondido">Início</p></a>
+				<a href="sobre.html#sobre"><p class="link">Sobre</p></a>
+				<a href="sobre.html#enviar"><p class="link link-escondido">Enviar pico</p></a>
+        <a href="sobre.html#contato"><p class="link link-escondido">Contato</p></a>
+			</div>
+			<div class="redes">
+				<a href="https://www.instagram.com/picos.app/" target="blank"><img src="img/home/instagram.svg" class="rede"></a>
+				<a href="https://www.youtube.com/channel/UC0cCQzVfqjqPJ7XsxANbs2Q" target="blank"><img src="img/home/youtube.svg" class="rede"></a>
+				<a href="https://discord.gg/ckTSHBSDTq" target="blank"><img src="img/home/discord.svg" class="rede"></a>
+			</div>
+		</div>
+	</section>
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxk62xpFF1vZSCfPDX6TsCtzuFAKMgMVU&callback=initMap&libraries=&v=weekly"
+      async>
+      </script>
+</body>
+</html>

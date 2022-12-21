@@ -1,0 +1,429 @@
+<script src="map.js"></script>
+
+<script>
+	// Initialize and add the map
+function initMap() {
+
+  // The location of center
+  const center = { lat: -22.95248117572736, lng: -43.19166890265383 }; 
+
+  // The map
+  var map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 15,
+    center: center,
+    styles:
+    [
+      {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#f7f7f7"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.business",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.park",
+        "elementType": "labels.text",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "geometry.fill",
+        "stylers": [
+          {
+            "color": "#ffd650"
+          }
+        ]
+      },
+      {
+        "featureType": "water",
+        "stylers": [
+          {
+            "color": "#b8dfff"
+          }
+        ]
+      }
+    ]
+  });
+
+
+
+
+  // Array of icons
+  var icons = {
+    "outros": {
+      url: "img/icones/outros.svg"
+    },
+    "gap": {
+      url: "img/icones/gap.svg"
+    },
+    "borda":{
+      url: "img/icones/borda.svg"
+    },
+    "praca":{
+      url: "img/icones/praca.svg"
+    },
+    "pista":{
+      url: "img/icones/pista.svg"
+    },
+    "corrimao":{
+      url:"img/icones/corrimao.svg"
+    },
+    "rampa":{
+      url:"img/icones/rampa.svg"
+    },
+  }
+
+  // Array of iconsinfo
+  var iconsinfo = {
+    "outros": {
+      url: "img/icones/outros-info.svg"
+    },
+    "gap": {
+      url: "img/icones/outros-gap.svg"
+    },
+    "borda":{
+      url: "img/icones/outros-borda.svg"
+    },
+    "praca":{
+      url: "img/icones/outros-praca.svg"
+    },
+    "pista":{
+      url: "img/icones/outros-pista.svg"
+    },
+    "corrimao":{
+      url:"img/icones/outros-corrimao.svg"
+    },
+    "rampa":{
+      url:"img/icones/outros-rampa.svg"
+    },
+  }
+
+
+  //Array of dificulties
+  var dificuldades = {
+    "facil":{
+      text: "Fácil"
+    },
+    "intermediario":{
+      text:"Intermediário"
+    },
+    "dificil": {
+      text: "Difícil"
+    },
+  }
+
+
+  //Function retornar template
+  function retornarTemplate(imagem, nome, dificuldade, categoriainfowindow, categoria, conhecido, endereco) {
+    return `
+    <section class="infowindow-content">
+      <img src="${imagem}" class="infowindow-img">
+      <h6>${nome}</h6>
+      <p class="caption dificuldade">${dificuldade}</p>
+      <div class="flex-categoria">
+        <img src="${categoriainfowindow}">
+        <p class="text-categoria">${categoria}</p>
+      </div>
+      <p class="tambem-conhecido caption">${conhecido}</p>
+      <p class="endereco">${endereco}</p>
+    </section>
+    `
+  };
+
+
+  // Array of markers
+  var markers = [
+    {
+      coords:{lat: -22.95314,
+        lng: -43.18874},
+      iconImage: icons.gap,
+      content: retornarTemplate(        
+        "https://doc-00-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/7u65735oiv90acn7lfid4tlg2o/1625122800000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5a9pNW51sQPYNNnedG88Pcihkk7ipezYsZ-K1po-L9hG1bgCh2xMlZh2DuD2U5MpXAtD9A-yzVFZD3SeuDKHkbqoz4afOPlJ6bkN-vEgnHzkihvL2rIe2o0mCqAEjU4TrpKXvlVPbizXyLI1rr8ARYnZOpUsQcPYCcsjdU4PZu8uAxBKHTmQr9LFrXT2lYvSrlK?fife=s16383",
+        'Gap do Itaú',
+        dificuldades.dificil.text,
+        iconsinfo.gap.url,
+        'Escada ou gap',
+        "Também conhecido como: <br> Gap de Botafogo, Gap do Itaú de Botafogo",
+        "Rua Voluntários da Pátria, 212 - Botafogo, Rio de Janeiro - RJ, 22270-012",
+      ),
+    },
+    {
+      coords:{lat: -22.96188,
+        lng: -43.20393},
+      iconImage: icons.rampa,
+      content: retornarTemplate(        
+        "https://doc-08-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/us5nd927k3d9otj4qo88k73cr8/1625122800000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5an-ClAWvnbXeYYTw62qwAEE9UeFxUQlVDkokrOvCHjhL177d7kspFQlf0g_bI9DHv87X99EYMr73jUG6XalHp14c6Mkz8mciiKDjNx5xjpew7BQG1SrObhDwpyYbWtPM_Proc0xQ9cnOGyuMHZEZy0ZLyTGhmpT927_iGDHcPWJJTE4ISojUzuWuZbuRndwGbp?fife=s16383",
+        'Rebouças',
+        dificuldades.dificil.text,
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        "",
+        "Praça Gen. Alcio Souto, 37 - Lagoa, Rio de Janeiro - RJ, 22471-310",
+      ),
+    },
+    {
+      coords:{lat: -22.95482,
+        lng: -43.19404},
+      iconImage: icons.gap,
+      content: retornarTemplate(        
+        "https://doc-0c-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/i355ee4mus2cd7uj6ni8j2fcv0/1625122800000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5ax-eg0OzUITUEsNEuUZxZOumptE8GEQKhPGIKciAq7_Nypg1bnByiK8vj2Xu4WnucAypJMMmdDc3CK8kBbMGZJjC4IgBUwXM_oIQrWbnSskG1EeAmaUfJgVDHPjHLNmsEnGdVj1zHc4iu-6E6AIUi1E8xlZr4ABkM5WboOW1zsLc3V338YHO-dUZKcn2326tRv?fife=s16383",
+        'Gap com mureta',
+        dificuldades.intermediario.text,
+        iconsinfo.gap.url,
+        'Escada ou gap',
+        "",
+        "R. Voluntários da Pátria, 452 - Loja I - Botafogo, Rio de Janeiro - RJ, 22270-018",
+      ),
+    },
+    {
+      coords:{lat: -22.95442,
+        lng: -43.19287},
+      iconImage: icons.borda,
+      content: retornarTemplate(        
+        "https://doc-10-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/v3qu3fmcqvo0tgslr63dpq8avg/1625122800000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5b6mt8IyP8n5kRGA1Q-vWCrayvZLTAoYztZ6GUrAeZhaMyIh2mOjAadpzY-y-yecgcogYTqbYk4nFbs6CeCJPeQFbcFdwd32xlVW9UIy2Vvz_VgjdLIvlsjmap1wJCgKEkYUZF49vAlvmRABDQBO1K5S8YyDbCKFjyeJ4ds5Dt6qHn9fCKECee09Ar72a63kz_w?fife=s16383",
+        'Borda em curva da Real Grandeza',
+        dificuldades.dificil.text,
+        iconsinfo.borda.url,
+        'Borda ou manual pad',
+        "",
+        "R. Real Grandeza, 114 - Botafogo, Rio de Janeiro - RJ, 22281-034",
+      ),
+    },
+    {
+      coords:{lat: -22.95482,
+        lng: -43.18243},
+      iconImage: icons.borda,
+      content: retornarTemplate(        
+        "https://doc-14-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/t9fo0e946demc87vu4ltqe3iuk/1625122800000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5a8bQaHbqp7Qf449WuM4won-oISQizkJ0etSP3O2Rx5lFQWSBVvYYQ36xePuGeEyM-HUHRX4Zi7GaVwXQ5zwxphrYl2m8fdmx9HxQaFSO9DDKcINZVewa-Nqm40NzcKh2eV-FvzYqE7-n9nqL6KL5NfoOnUEt_ZyzNEzFS9E9QTyuqlbFRaBDubek0qPnPIk_He?fife=s16383",
+        'Bordinha da Arnaldo Quintela',
+        dificuldades.facil.text,
+        iconsinfo.borda.url,
+        'Borda ou manual pad',
+        "Também conhecido como: <br> Bordinha de mármore",
+        "R. Fernandes Guimarães, 91  - Botafogo, Rio de Janeiro - RJ, 22290-000",
+      ),
+    },
+    {
+      coords:{lat: -22.9543,
+        lng: -43.18416},
+      iconImage: icons.rampa,
+      content: retornarTemplate(        
+        "https://doc-10-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/qq2ia6rop04ab97gemcgqmboto/1625122800000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5ZZT3lFVVULjcqPD2aPi3K3yGB9DSJ9IyBODpSWViutcjJkFn-7Cy2CsemLxJWGFRJz0_Asf217ALyqFlCxCwVP65o2k8xdD7xGVUtUuJJsNCJIEHVeLbX4bwiwvbHB-WSZcN381JLsXAKhhjUPSSHu6NezvL8IibZixdug0Ifz2EBP_aLmsz_-EQ6_DAMxmlOr?fife=s16383",
+        'Wallride da Oi',
+        dificuldades.intermediario.text,
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        "Também conhecido como: <br> Wallride de mármore, Wallride de Botafogo",
+        "R. Gen. Polidoro, 104 - Botafogo, Rio de Janeiro - RJ, 22280-002",
+      ),
+    },
+    {
+      coords:{lat: -22.94866,
+      lng: -43.18105},
+      iconImage: icons.rampa,
+      content: retornarTemplate(        
+        "https://doc-14-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/a61e7g09l5suri275iep587l3c/1625122800000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5avNkzkR3CbIhO7cIWG404eqMuYSkg9zvSRo5zPHIyJI1vZorBh6NwMxpgSDbrJJWs4ycCdwf1FJXPKOkICCs7UuXW3cMYvjW8yzyPCMaJDBmhgLvVyqJQ2pb8jNFvD_k48LJRXTZNAiOQJXxRY7Lfog2hFJhBjy_3bBVY4pJL6ec_agewTsEPOyJ2k6zm2SSSS?fife=s16383",
+        'Passagem subterrânea de Botafogo',
+        dificuldades.intermediario.text,
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        "Também conhecido como: <br> Wallride branco, Wallride da praia",
+        "Av. das Nações Unidas, 335-269 - Botafogo, Rio de Janeiro - RJ, 20021-140",
+      ),
+    },
+    {
+      coords:{lat: -22.94155,
+      lng: -43.1797},
+      iconImage: icons.rampa,
+      content: retornarTemplate(        
+        "https://doc-0k-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/ji63hv0drb1seqv2nsul8bfqug/1625122800000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5ZrnSaRwddFPpgsEmwWAQkH0CRjeI8Bk9AyVGWcgFf19Klh2wdHxD2cF_BPhLfw_gGK0xWkOB8MXsd6Ltu85knabadOLgiqd76EfLq0sbapSh7lpnD_Q1ABRhwz5Zf8uAV_AAANzTQnH4F5TOa416f5ciMftOEobhWwOJoO0mCwj6Zoi5UGZojCirvPnF0QaCi0?fife=s16383",
+        'Quarter da FGV',
+        dificuldades.dificil.text,
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        "Também conhecido como: <br> Quarter da FGV, Quarter de Botafogo",
+        "R. Praia de Botafogo, 191-173 - Botafogo, Rio de Janeiro - RJ, 22250-040",
+      ),
+    },
+    {
+      coords:{lat: -22.94506,
+      lng: -43.18372},
+      iconImage: icons.praca,
+      content: retornarTemplate(        
+        "https://doc-10-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/fhh94cg04vqbgcgqsgq5tem0kg/1625175000000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5bIKj0cCwyXuW8RuOrCP5bRvB_3pGHUtQl8jE5ZY-4VOgV3hkoddFJ1xByVK-a7c_ss9RmiOmADqKfGVMUzPSXzrVZ9wOSqVd47KwctGWOASK6tVpT97FIVoeBAqd441KpUokN5ryX_PB-t352JQLJ_lL5-PECKNYsZ_E9ndWQmnf0a66zoFb3RdrWZ36JO3aFf?fife=s16383",
+        'Praça Joia Valansi',
+        dificuldades.intermediario.text,
+        iconsinfo.praca.url,
+        'Praça',
+        "",
+        "R. Natal, 32 - Botafogo, Rio de Janeiro - RJ, 22250-210",
+      ),
+    },
+    {
+      coords:{lat: -22.9829,
+      lng: -43.41173},
+      iconImage: icons.pista,
+      content: retornarTemplate(        
+        "https://doc-04-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/a3h3dguc7e1koimnhu73868lv4/1625175000000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5bKgjBwu9s1uRcAEoczt3zWHB0ciCYM9jczaYZEy4OEJF0i3VYvGB_Ezg8b2D5NKrMbgbZF9y1VsIwHLQ777gSQafcIsIqbNeugPpLiZynjNtaOMyBLPIV5OURxdqy7tZFjFAYB6xbwiP-_hXIioGUBZwWYzx78KtsPX5A-i7Pg1x7INa_eFKU5h4MqOY3nP_M?fife=s16383",
+        'Ilha Pura',
+        dificuldades.facil.text,
+        iconsinfo.pista.url,
+        'Pista',
+        "Também conhecido como: <br> Pista de skate do Ilha Pura",
+        "Av. das Américas, 11599 - Barra da Tijuca, Rio de Janeiro - RJ, 22793-082",
+      ),
+    },
+    {
+      coords:{lat: -22.93055,
+      lng: -43.23317},
+      iconImage: icons.rampa,
+      content: retornarTemplate(        
+        "https://doc-0o-94-mymaps.googleusercontent.com/untrusted/hostedimage/fa2jgf20ftk75krsi86lt4mv8k/tnq431ttaoe78ueodeqhgemmdg/1625176527000/U7UP13bP__r-tykujT6glodB3uCdz3qN/06498369452672447472/5AOlzF5aEaDMNe6gtGtAhJzcQMIzp1LqJwrxG4gY3yZmrHlJ_Z6-2iVp1S4N0weqq-1sNIoAtchjmd0LXBnjyusSZgloVRUFh5CJ86bbFFvnWoKqtfcoIvyWZyfT4yg0FLyrsyn9Idz5GUZMS_Gc6IZTdSHODuCDgMzDyAM203-XQHm2uwFHjQ4J66Njp-3DaQz8inCU?session=1&fife=s16383",
+        'Rampinha da igreja',
+        dificuldades.intermediario.text,
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        "",
+        "R. Bom Pastor, 460-584 - Tijuca, Rio de Janeiro - RJ, 20521-060",
+      ),
+    },
+    {
+      coords:{lat: -22.92991,
+      lng: -43.23414},
+      iconImage: icons.rampa,
+      content: retornarTemplate(        
+        "https://doc-10-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/kbhrav3bpdcc91alg454u6b520/1625195700000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5aEtxOwIq0fkK49fS8C_D4rYO9cv8AK7UG0dDnIbxqRvMro2NLc8d_AwC43GlX0pKjX4h4FWDaB5AjTH1zuwtRcxWRaTs8xVU6qGU7BC921S3JUY2wRC65sCTypa7Vvw0bGI3h47Sr5WVkehScQ0rFb0ieJni9nD1P-xMAwgb3nq9MWyow0KcNOhtvqRYuffiE?fife=s16383",
+        'Wallride Desembargador Izidro',
+        dificuldades.dificil.text,
+        iconsinfo.rampa.url,
+        'Rampa ou wallride',
+        "",
+        "R. Des. Izidro, 136-156 - Tijuca, Rio de Janeiro - RJ, 20521-160",
+      ),
+    },
+    {
+      coords:{lat: -22.93108,
+      lng: -43.23796},
+      iconImage: icons.borda,
+      content: retornarTemplate(        
+        "https://doc-08-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/kn1kp4ri8hh5t1i0gndq4dir38/1625195700000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5bbi2xVlrFBk3C3OD0DDuxz66xJKRcxLB7RNVWjc2ocR65BbX6yRBXDJx6Jgrn5CqyTu-zmBc5yeDiMdOSELid_praMquDgH2KZV2yqRoZN_f0Hq74b4Ux7bOPWzT6evb6nDiX_-M-F_WdJn8qF_kAL1oFcXVk29wicayZqj3HQNOxvhiFdK5n99cTi1ND0kwM?fife=s16383",
+        'Borda em curva',
+        dificuldades.dificil.text,
+        iconsinfo.borda.url,
+        'Borda ou manual pad',
+        "Também conhecido como: <br> Borda da Visconde de Cabo Frio",
+        "Rua Conde de Bonfim, 593 - Tijuca, Rio de Janeiro - RJ, 20520-052",
+      ),
+    },
+    {
+      coords:{lat: -22.92641,
+      lng: -43.26503},
+      iconImage: icons.outros,
+      content: retornarTemplate(        
+        "https://doc-0k-0k-mymaps.googleusercontent.com/untrusted/hostedimage/67ht0gn364521qiheeia79564g/fpraeht9mv2iokpo3ojuk0qiec/1625195700000/U7UP13bP__r-tykujT6glodB3uCdz3qN/*/6AOlzF5ZGwW7pgQ-1MpPIX5HA229Z1NhKdXz9tlh7bcekGkzU417LZtkXyqqH-4Z6IvGIrtlp-lowOtwnpng720Yr8zT4lFVkhGs_GmWK5-l7UsHdtsj18dDDBlO8oh7sJcK9P6Twkov_mvp0coTSyBtE4qkkVe6W7LFpV6ynreJwjHZ25SVmSxTq69M_7UB1JukeDCd-?fife=s16383",
+        'Fradinho Grajamaica',
+        dificuldades.dificil.text,
+        iconsinfo.outros.url,
+        'Outros',
+        "",
+        "Rua Borda do Mato, 298 BLC Apto 409 - Grajau, Rio de Janeiro - RJ, 20561-208"
+      ),
+    },
+  ];
+
+  //Loop for markers
+  markers.forEach(marker => addMarker(marker))
+
+
+  // Add marker funcion
+  function addMarker (props){
+    var marker = new google.maps.Marker({
+      position: props.coords,
+      map: map,
+    });
+
+    // Check for customization
+    if(props.iconImage){
+
+      //Set icon image
+      marker.setIcon(props.iconImage);
+    }
+
+    //Check content
+    if(props.content){
+      var InfoWindow = new google.maps.InfoWindow({
+        content: props.content
+      });
+
+
+      marker.addListener('click', function(){
+        InfoWindow.open(map, marker);
+      });
+    }
+  }
+}
+</script>
+<style>
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+  height: 100%;
+}
+
+/* Optional: Makes the sample page fill the window. */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+</style>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Picos</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="geral.css" />
+    <script src="./index.js"></script>
+    <meta id="viewport" name="viewport" content="width=device-width" />
+  </head>
+  <body>
+  			<section class="menu">
+		<div class="container-menu">
+			<img src="img/home/logo.svg" class="logo">
+			<div class="links">
+				<a href="#inicio"><p class="link">Início</p></a>
+				<a href="#sobre"><p class="link">Sobre</p></a>
+				<a href="#enviar"><p class="link">Enviar pico</p></a>
+				<a href="#contato"><p class="link">Contato</p></a>
+			</div>
+			<div class="redes">
+				<a href="https://www.instagram.com/picos.app/" target="blank"><img src="img/home/instagram.png" class="rede"></a>
+				<a href="https://www.youtube.com/channel/UC0cCQzVfqjqPJ7XsxANbs2Q" target="blank"><img src="img/home/youtube.png" class="rede"></a>
+				<a href="https://discord.gg/ckTSHBSDTq" target="blank"><img src="img/home/discord.png" class="rede"></a>
+			</div>
+		</div>
+	</section>
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxk62xpFF1vZSCfPDX6TsCtzuFAKMgMVU&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+  </body>
+</html>
